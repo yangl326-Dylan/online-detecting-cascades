@@ -131,6 +131,33 @@ public class LCA_Binary {
 		n6.rightChild = n10;
 		return root;
 	}
+	/**
+	 * binary search tree
+	 * @return
+	 */
+	public static Node construct2(){
+		Node root = new Node(10);
+		Node n2 = new Node(5);
+		Node n3 = new Node(15);
+		Node n4 = new Node(2);
+		Node n5 = new Node(7);
+		Node n6 = new Node(13);
+		Node n7 = new Node(17);
+		Node n8 = new Node(1);
+		Node n9 = new Node(3);
+		Node n10 = new Node(6);
+		
+		root.leftChild = n2;
+		root.rightChild = n3;
+		n2.leftChild=n4;
+		n2.rightChild = n5;
+		n3.leftChild = n6;
+		n3.rightChild = n7;
+		n4.leftChild = n8;
+		n4.rightChild = n9;
+		n5.leftChild = n10;
+		return root;
+	}
 	public static  Node lca3( Node root,  Node p,   Node q){
 		LinkedList< Node> path1 = new LinkedList< Node>();
 		LinkedList<Node> path2 = new LinkedList< Node>();
