@@ -86,7 +86,7 @@ public class LCA_Binary {
 		return L==null ? R:L;
 	}
 	public static  Node construct(){
-		Node root = new Node(1);
+		Node root = new Node(0);
 		Node n2 = new Node(2);
 		Node n3 = new Node(3);
 		Node n4 = new Node(4);
