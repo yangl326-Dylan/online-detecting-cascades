@@ -8,7 +8,7 @@ class TreeLinkNode{
     TreeLinkNode left,right,next;
     TreeLinkNode(int x){val = x;}
 }
-/**class TreeNode {
+class TreeNode {
      int val;
      TreeNode left;
      TreeNode right;
@@ -21,7 +21,7 @@ class ListNode{
         val = x;
         next = null;
     }
-}**/
+}
 public class Solution10 {
    /**
     * Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
