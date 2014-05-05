@@ -3,7 +3,7 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Solution {
+public class Solution9 {
     /**
      * Say you have an array for which the ith element is the price of a given stock on day i.
      * If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), 
@@ -192,8 +192,7 @@ public class Solution {
     /**
      * 
      * @param start [
-     * @param end ）
-     * @param mark
+     * @param end 锛�     * @param mark
      * @param prices
      * @return
      */
@@ -262,7 +261,7 @@ public class Solution {
         return result;
     }
     /**
-     * 生成第row排的结果
+     * 鐢熸垚绗瑀ow鎺掔殑缁撴灉
      * @param row
      * @param last
      * @param curr
@@ -305,7 +304,7 @@ public class Solution {
         return r;
     }
     /**
-     * 求最大公约数，为了处理大整数
+     * 姹傛渶澶у叕绾︽暟锛屼负浜嗗鐞嗗ぇ鏁存暟
      * @param a
      * @param b
      * @return
@@ -353,7 +352,7 @@ public class Solution {
     }
     public static void main(String[] args){
         int [] a = {1,2,4};
-        SolutionHT ht = new SolutionHT();
+        Solution9 ht = new Solution9();
        // System.out.println(ht.maxProfit3(a));
         ArrayList<Integer> r1 = new ArrayList<Integer>();
         r1.add(-1);
