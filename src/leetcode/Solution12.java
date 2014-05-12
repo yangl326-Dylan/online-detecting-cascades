@@ -188,22 +188,25 @@ public class Solution12 {
 		if(root == null)
 			return r;
 		TreeNode cur = root;
-		if(cur.left == null){
-			r.add(cur.val);
-			cur = cur.right;
-		}else{
-			//find cur's predecessor
-			TreeNode pre = cur.left;
-			while(pre!=null && pre.right!=cur)
-				pre = pre.right;
-			//make the predecessor's right pointer points to the current node or recover it
-			if(pre.right == null)
-			{
-				pre.right = cur;
-				cur = cur.left;
-			}else{
-				pre.right = null;
-				cur = cur.right;// notice !!!!!
+		while (cur != null) {
+			if (cur.left == null) {
+				r.add(cur.val);
+				cur = cur.right;
+			} else {
+				// find cur's predecessor
+				TreeNode pre = cur.left;
+				while (pre.right != null && pre.right != cur)
+					pre = pre.right;
+				// make the predecessor's right pointer points to the current
+				// node or recover it
+				if (pre.right == null) {
+					pre.right = cur;
+					cur = cur.left;
+				} else {
+					r.add(cur.val);
+					pre.right = null;
+					cur = cur.right;// notice !!!!!
+				}
 			}
 		}
 		return r;
@@ -248,8 +251,8 @@ public class Solution12 {
 		// TODO Auto-generated method stub
 		//TreeNode t = new TreeNode(1);
 		//t.left = new TreeNode(1);
-		 TreeNode root = new TreeNode(0);
-	        root.left = new TreeNode(1);
+		 TreeNode root = new TreeNode(1);
+	        root.left = new TreeNode(2);
 	       // root.left.left = new TreeNode(3);
 	       // root.right = new TreeNode(3);
 	       // root.left.left = new TreeNode(11);
@@ -261,7 +264,8 @@ public class Solution12 {
 		Solution12 s = new Solution12();
 		//s.isValidBST(t);
 		//System.out.println(s.Postorder(root));
-		s.recoverTree(root);
+		//s.recoverTree(root);
+		s.InorderMorris(root);
 	}
 
 }
