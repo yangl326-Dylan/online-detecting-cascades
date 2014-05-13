@@ -514,10 +514,25 @@ public class Solution13 {
 	  * @return
 	  */
 	 public int maximalRectangle(char[][] matrix) {
-		 if(matrix.length == 0)
-			 return 0;
-		 
-	 }
+	        if(matrix.length == 0)
+				 return 0;
+			 int wid = matrix.length;
+			 int len = matrix[0].length;
+			 int[][] height =new int[wid][len];
+			 int area = 0;
+			 for(int i = 0;i<wid;i++){
+				 for(int j=0;j<len;j++){
+					 if(i == 0)
+						 height[i][j] = matrix[i][j]-'0';
+					 else
+						 height[i][j] = matrix[i][j] == '0' ? 0: height[i-1][j]+1;
+				 }
+				 int each = largestRectangleArea(height[i]);
+				 if(each>area)
+					 area = each;
+			 }
+			 return area;
+	    }
 	 /**
 	  * Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
 	  * @param height
