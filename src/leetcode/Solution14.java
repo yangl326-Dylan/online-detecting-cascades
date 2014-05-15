@@ -291,6 +291,147 @@ public class Solution14 {
 		return am;
 	}
 	/**
+	 * Given a string, find the length of the longest substring without repeating characters. 
+	 * For example, the longest substring without repeating letters for ¡°abcabcbb¡± is ¡°abc¡±, 
+	 * which the length is 3. For ¡°bbbbb¡± the longest substring is ¡°b¡±, with the length of 1.
+	 * @param s
+	 * @return
+	 */
+	public int lengthOfLongestSubString(String s){
+		if(s == null || s.length() <= 0)
+			return 0;
+		char[] c = s.toCharArray();
+		int[] a = new int[c.length];
+		
+		int label = 0;
+		a[0] = 1;
+		int max = 1;
+		boolean f = false;
+		for(int i=1;i<c.length;i++){
+			f = false;
+			for(int j=label;j<i;j++){
+				if(c[i] == c[j])
+				{
+					//note here , the new label should be from the repeated character's next element, and a[i] should include all elements from the label to i
+					//this is very important!!!!
+					label = j+1;
+					a[i] = i-label+1;
+					f = true;
+					break;
+				}
+			}
+			if(f == false)//does not appear a same char
+			{
+				a[i] = a[i-1]+1;
+			}
+			if(a[i]>max)
+				max = a[i];
+		}
+		return max;
+	}
+	/**
+	 * You are given two linked lists representing two non-negative numbers. 
+	 * The digits are stored in reverse order and each of their nodes contain 
+	 * a single digit. Add the two numbers and return it as a linked list.
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
+	 public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+		 ListNode r = null;
+		 //base case, 
+		 if(l1 == null && l2 == null)
+			 return r;
+		 if(l1 == null )
+			 return l2;
+		 if(l2 == null)
+			 return l1;
+		 
+		 int x = 0; // jin wei biaozhi
+		 ListNode t1 = l1;
+		 ListNode t2 = l2;
+		 ListNode pointer = null;
+		 ListNode temp = null;
+		 while(t1 != null && t2!=null){
+			 int b = t1.val + t2.val + x;
+			 x = b/10;
+			 b = b%10;
+			 temp = new ListNode(b);
+			 if(pointer == null)
+				 r = temp;
+			 else
+				 pointer.next = temp;
+			
+			 pointer = temp;
+			 t1 =t1.next;
+			 t2 =t2.next;
+			 
+		 }
+
+		while (t1 != null) {
+			int b = t1.val + x;
+			x = b / 10;
+			b = b % 10;
+			temp = new ListNode(b);
+			pointer.next = temp;
+			pointer = temp;
+			t1 = t1.next;
+		}
+
+		while (t2 != null) {
+			int b = t2.val + x;
+			x = b / 10;
+			b = b % 10;
+			temp = new ListNode(b);
+			pointer.next = temp;
+			pointer = temp;
+			t2 = t2.next;
+		}
+
+		 if(x !=0)
+		 {
+			 temp = new ListNode(x);
+			 pointer.next = temp;
+		 }
+		 return r;
+	 }
+	 /**
+	  * DP 
+	  * @param s
+	  * @return
+	  */
+	 public String longestPalindrome(String s) {
+		 if(s == null ||s.length()<=0)
+			 return null;
+		 char[] c  =  s.toCharArray();
+		 
+		 return s.substring(start,end+1);
+	 }
+	 /**
+	  * Accepted 
+	  * O(n^3) why ????
+	  * @param s
+	  * @return
+	  */
+	 public String longestPalindrome2(String s) {
+		 if(s == null ||s.length()<=0)
+			 return null;
+		 char[] c  =  s.toCharArray();
+		 for(int len = c.length ;len>1;len--){
+			 for(int start=0;start<=c.length-len;start++){
+				 int i=start,j = start+len-1;
+				 while(i<=j && c[i] == c[j])
+				{
+					 i++;
+					 j--;
+				}
+				 if(i>=j)
+					 return s.substring(start,start+len);
+			 }
+		 }
+		 return s.substring(0,1);
+	 }
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -307,9 +448,19 @@ public class Solution14 {
 		System.out.println(s.exist(a, "ABCB"));*/
 		//int[] r = {3,2,4};
 		//s.twoSum(r, 6);
-		int[] a = {1,2,6};
-		int[] b = {3,4,5};
-		System.out.println(s.findMedianSortedArrays(a, b));
+		//int[] a = {1,2,6};
+		//int[] b = {3,4,5};
+		//System.out.println(s.findMedianSortedArrays(a, b));
+		//System.out.println(s.lengthOfLongestSubString("qopubjguxhxdipfzwswybgfylqvjzhar"));
+		ListNode r =new ListNode(9);
+		r.next = new ListNode(9);
+		//r.next.next = new ListNode(3);
+		
+		ListNode b =new ListNode(9);
+		//b.next = new ListNode(9);
+		//b.next.next = new ListNode(4);		
+		System.out.println(s.longestPalindrome2("abb"));
+		//s.addTwoNumbers(r, b);
 	}
 
 }
