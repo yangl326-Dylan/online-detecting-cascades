@@ -397,6 +397,7 @@ public class Solution14 {
 	 }
 	 /**
 	  * DP 
+	  * 
 	  * @param s
 	  * @return
 	  */
@@ -404,8 +405,41 @@ public class Solution14 {
 		 if(s == null ||s.length()<=0)
 			 return null;
 		 char[] c  =  s.toCharArray();
+		 boolean [][] flag = new boolean[c.length][c.length]; // to mark s[i...j] is palindrome
+		 //each is a palindrome
+		 for(int i=0;i<c.length;i++)
+			 flag[i][i] = true;
+		 int start = 0;
+		 int end = 0;
+		 int max = 1;
+		 //from end to start
+		 for(int i=c.length-1;i>=0;i--){
+			 for(int j=c.length-1;j>i;j--){
+				 if(j-i==1){
+					if(c[i] == c[j])
+					{
+						flag[i][j] = true;
+						if(max < 2){
+							max = 2;
+							start = i;
+							end = j;
+						}
+					}
+				 }else{
+						if(c[i] == c[j] && flag[i+1][j-1] == true){
+							flag[i][j] = true;
+							if(j-i+1 > max){
+								max = j-i+1;
+								start = i;
+								end = j;
+							}
+						}
+					}
+				 }
+			 }
 		 
-		 return s.substring(start,end+1);
+		 //return null;
+		return s.substring(start,end+1);
 	 }
 	 /**
 	  * Accepted 
@@ -459,7 +493,7 @@ public class Solution14 {
 		ListNode b =new ListNode(9);
 		//b.next = new ListNode(9);
 		//b.next.next = new ListNode(4);		
-		System.out.println(s.longestPalindrome2("abb"));
+		System.out.println(s.longestPalindrome("ccc"));
 		//s.addTwoNumbers(r, b);
 	}
 
