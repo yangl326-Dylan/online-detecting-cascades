@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.HashMap;
+
 import javax.xml.stream.events.StartDocument;
 
 public class Solution15 {
@@ -184,6 +186,7 @@ public class Solution15 {
 	/**
 	 * 
 	 * by dp solution
+	 * unsolved
 	 * @param s
 	 * @param p
 	 * @return
@@ -244,13 +247,82 @@ public class Solution15 {
 			}
 		return dp[s.length()-1][p.length()-1];
 		}
-
+	/**
+	 * 将一个int型转成rome数字型
+	 * @param num
+	 * @return
+	 */
+	public  String intToRoman(int num) {
+        String[] dic ={" ", "I" , "II" ,"III", "VI","V","IV","IIV","IIIV","XI",
+        		" ", "X","XX","XXX","LX","L","XL","XXL","XXXL","CX",
+        		" ", "C","CC","CCC","DC","D","CD","CCD","CCCD","MC",
+        		" ", "M","MM","MMM"};
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        int t = num;
+        while(t>0){
+        	int r = t%10;
+        	t = t/10;
+        	if(r == 0)
+        	{
+        		i++;
+        		continue;
+        	}
+        	int index = i*10 + r;
+        	sb.append(dic[index]);
+        	i++;
+        }
+        char[] ar = sb.toString().toCharArray();
+        sb = new StringBuilder();
+        //reverse the result
+        for(i=ar.length-1;i>=0;i--){
+        	sb.append(ar[i]);
+        }
+        return sb.toString();
+    }
+	public int romanToInt(String s){
+		HashMap<String, Integer> kv = new HashMap<String,Integer>();
+		kv.put("I", 1);
+		kv.put("II", 2);
+		kv.put("III", 3);
+		kv.put("IV", 4);
+		kv.put("V", 5);
+		kv.put("VI", 6);
+		kv.put("VII", 7);
+		kv.put("VIII", 8);
+		kv.put("IX", 9);
+		
+		kv.put("X", 10);
+		kv.put("XX", 20);
+		kv.put("XXX", 30);
+		kv.put("XL", 40);
+		kv.put("L", 50);
+		kv.put("LX", 60);
+		kv.put("LXX", 70);
+		kv.put("LXXX", 80);
+		kv.put("XC", 90);
+		
+		kv.put("C", 100);
+		kv.put("CC", 200);
+		kv.put("CCC", 300);
+		kv.put("CD", 400);
+		kv.put("D", 500);
+		kv.put("DC", 600);
+		kv.put("DCC", 700);
+		kv.put("DCCC", 800);
+		kv.put("CM", 900);
+		
+		kv.put("M", 1000);
+		kv.put("MM", 2000);
+		kv.put("MMM", 3000);
+	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Solution15 s = new Solution15();
+		System.out.println(s.intToRoman(1904));
 	}
 
 }
