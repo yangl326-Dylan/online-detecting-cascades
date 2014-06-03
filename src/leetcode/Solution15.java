@@ -1,6 +1,9 @@
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.stream.events.StartDocument;
 
@@ -280,6 +283,11 @@ public class Solution15 {
         }
         return sb.toString();
     }
+	/**
+	 * 将一个罗马数字转成一个int类型
+	 * @param s
+	 * @return
+	 */
 	public int romanToInt(String s){
 		HashMap<String, Integer> kv = new HashMap<String,Integer>();
 		kv.put("I", 1);
@@ -315,14 +323,235 @@ public class Solution15 {
 		kv.put("M", 1000);
 		kv.put("MM", 2000);
 		kv.put("MMM", 3000);
+		
+		int ret = 0;
+		for(int i=0;i<s.length();){
+			int index = i+4>s.length()? s.length():i+4;
+			
+			while(index>i){
+				String tmp = s.substring(i,index);
+				if(kv.containsKey(tmp)){
+					ret = ret+kv.get(tmp);
+					break;
+				}else{
+					index--;
+				}
+			}
+			i = index;
+		}
+		return ret;
+		
 	}
+	/**
+	 * 输入数组中三个数和为0的3-triples
+	 * @param num
+	 * @return
+	 */
+	 public List<List<Integer>> threeSum(int[] num) {
+         List<List<Integer>> ret = new ArrayList<List<Integer>>();
+		if(num.length<=2)
+        	return ret;
+		//first sort the num array
+		Arrays.sort(num);
+		
+		for(int i=0;i<num.length;i++){
+			if(i>=1 && num[i]==num[i-1])//which has computed in the last round
+				continue;
+			int sum = num[i] * (-1);
+			int start = i+1;
+			int end = num.length-1;
+			
+			while(start<end){
+			    if(start>i+1 && num[start] == num[start-1])
+				{
+					start++;
+					continue;
+				}
+				if(num[start]+num[end] == sum){
+					ArrayList<Integer> list = new ArrayList<Integer>();
+					list.add(num[i]);
+					list.add(num[start]);
+					list.add(num[end]);
+					ret.add(list);
+					start++; // continue to get the next pair
+					continue;
+				}
+				if(num[start]+num[end] < sum)
+					start++;
+				else
+					end--;
+			}
+		}
+		
+		return ret;
+    }
+	 public int threeSumClosest(int[] num, int target) {
+		 if(num.length<=2)
+			 return 0;
+		 Arrays.sort(num);
+		 
+		 int absDis = Integer.MAX_VALUE;
+		 int ret =0;
+		 
+		 for(int i=0;i<num.length;i++){
+			 int sum = target-num[i];
+			 int start = i+1;
+			 int end = num.length-1;
+			 while(start<end){
+				 if(Math.abs(num[start] + num[end] - sum)<absDis )
+				 {
+					 absDis = Math.abs(num[start] + num[end] - sum);
+					 ret = num[start] + num[end] + num[i];
+				 }
+				 if(num[start] + num[end] <= sum)
+					 start++;
+				 else
+					 end--;
+			 }
+		 }
+		 return ret;
+	 }
+	 /**
+		 * return all possible letter combinations
+		 * @param digits
+		 * @return
+		 * @author Administrator
+		 * @date 2014-6-3
+		 */
+		public List<String> letterCombinations(String digits) {
+	        HashMap<Integer, String> map = new HashMap<Integer,String>();
+	        map.put(2, "abc");
+	        map.put(3, "def");
+	        map.put(4, "ghi");
+	        map.put(5, "jkl");
+	        map.put(6, "mno");
+	        map.put(7, "pqrs");
+	        map.put(8, "tuv");
+	        map.put(9, "wxyz");
+	        List<String> ret = new ArrayList<String>();
+	        if(digits.length()>0){
+	        	sub4letters(digits, 0, null, ret, map);
+	        }else{
+	        	ret.add("");
+	        }
+	        return ret;
+	    }
+		 public List<List<Integer>> fourSum(int[] num, int target) {
+				List<List<Integer>> ret = new ArrayList<List<Integer>>();
+				if(num.length>=4)
+				{
+					Arrays.sort(num);
+					if(num[0]+num[1]+num[2]+num[3]>target || 
+							num[num.length-1]+num[num.length-2]+num[num.length-3]+num[num.length-4]<target)
+						return ret;
+					rec4sum(num,4,0,target,null,ret);
+				}
+				return ret;
+		    }
+		    /**
+			 * 
+			 * @param num the array
+			 * @param index 4->3->2->1
+			 * @param start the possible start index
+			 * @param target the current target
+			 * @param list the current possible result list
+			 * @param ret the total result
+			 * @author Administrator
+			 * @date 2014-6-3
+			 */
+				private void rec4sum(int[] num, int index, int start,int target, List<Integer> list, List<List<Integer>> ret){
+				//base case
+				if(index == 1){
+					for(int i=start;i<num.length;i++){
+						if(i!=start && num[i] == num[i-1])
+							continue;
+						
+						if(num[i] == target){
+							List<Integer> li = new ArrayList<Integer>();
+							li.addAll(list);
+							li.add(num[i]);
+							//first check whether list has been in the ret
+							boolean flag = false;
+							for(List<Integer> lis: ret){
+								boolean subflag = false;//by default, li and list are the same
+								//the following needs to consider carefully
+								for(Integer it:lis){
+									if(!li.contains(it))
+									{
+										subflag = true;
+										break;
+									}
+								}
+								for(Integer it:li){
+									if(!lis.contains(it))
+									{
+										subflag = true;
+										break;
+									}
+								}
+								//if li and list are the same
+								if(subflag == false){
+									flag = true;
+									break;
+								}
+							}
+							//list has been in the result
+							if(flag == true){
+								continue;
+							}else{
+								ret.add(li);
+							}
+						}
+					}
+					return;
+				}
+				for(int i = start;i<=num.length-index; i++){
+					List<Integer> li = new ArrayList<Integer>();
+					if(list != null && list.size()>0)
+						li.addAll(list);
+					//this is a effective pruning method
+					if(num[i]*index > target)
+						break;
+					li.add(num[i]);
+					rec4sum(num,index-1,i+1,target-num[i],li,ret);
+				}
+			}
+		/**
+		 * using recursion method
+		 * @param digits 
+		 * @param index 
+		 * @param cur 
+		 * @param ret
+		 * @param map
+		 * @author Administrator
+		 * @date 2014-6-3
+		 */
+		private void sub4letters(String digits, int index, String cur, List<String> ret, HashMap<Integer, String> map){
+			if(index >= digits.length())
+				return;
+			int tar = digits.charAt(index)-'0';
+			String tars = map.get(tar);
+			
+			for(int i=0;i<tars.length();i++){
+				char t = tars.charAt(i);
+				StringBuilder sb = new StringBuilder();
+				if(cur!=null && cur.length()>0)
+					sb.append(cur);
+				sb.append(t);
+				if(index == digits.length()-1)
+					ret.add(sb.toString());
+				sub4letters(digits, index+1,sb.toString(), ret, map);
+			}
+		} 
+	 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Solution15 s = new Solution15();
-		System.out.println(s.intToRoman(1904));
+		int[] num = {-1,2,1,-4};
+		System.out.println(s.threeSumClosest(num, 1));
 	}
 
 }
