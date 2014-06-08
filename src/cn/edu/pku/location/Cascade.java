@@ -13,7 +13,7 @@ public class Cascade {
 	private int junctionId;
 	//the detected time or the real time of pollution reaches the node
 	private int detectedTime;
-	//the children nodes
+	//the children nodes , test
 	private List<Cascade> children = new ArrayList<Cascade>();
 	
 	/**
