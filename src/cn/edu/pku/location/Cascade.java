@@ -15,6 +15,9 @@ public class Cascade {
 	private int detectedTime;
 	//the children nodes , test
 	private List<Cascade> children = new ArrayList<Cascade>();
+	//population affected
+	private double populationAffected;
+	
 	
 	/**
 	 * add a child to the children
@@ -60,6 +63,12 @@ public class Cascade {
 
 	public void setChildren(List<Cascade> children) {
 		this.children = children;
+	}
+	public double getPopulationAffected() {
+		return populationAffected;
+	}
+	public void setPopulationAffected(double populationAffected) {
+		this.populationAffected = populationAffected;
 	}
 
 }
